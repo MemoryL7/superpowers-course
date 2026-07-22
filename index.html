@@ -837,7 +837,7 @@ You cannot rationalize your way out of this.
 <div class="callout tip"><span class="icon">✅</span><div class="callout-body"><strong>一句话</strong>：skill = 可复用的行为模式，一次定义，到处生效。</div></div>
 
 <h3>🩹 问题 4：提示词膨胀 → skill 让"按需加载"</h3>
-<p>假设你把所有流程塞进一个超长系统提示词（system prompt，就是每次开会都要念一遍的"开场白"）：</p>
+<p>假设你把所有流程塞进一个超长系统提示词（system prompt（系统提示词），就是每次开会都要念一遍的"开场白"）：</p>
 <blockquote><p>"你是一个会 TDD 的、会调试的、会写计划的、会做代码评审的、会用 git worktree（git 工作树，一种隔离工作区的功能）的、会……的工程师……"</p></blockquote>
 <p>结果：</p>
 <ul>
@@ -1240,7 +1240,7 @@ skip this skill.
     body: `
 <h2>一、先把整条链路画出来</h2>
 <p>上一节课我们认识了 skill 的样子（一个文件夹 + SKILL.md）。这一节要回答一个更关键的问题：<strong>AI 是怎么"知道"现在该用哪个 skill 的？</strong> 它又没有一直在后台运行一个调度器。</p>
-<p>答案分成三步，我们叫它"<strong>触发三步曲</strong>"（trigger trilogy）：</p>
+<p>答案分成三步，我们叫它"<strong>触发三步曲</strong>"（trigger trilogy（触发三步曲））：</p>
 <pre><code>用户发消息
    │
    ▼
@@ -1438,7 +1438,7 @@ printf '{ "hookSpecificOutput": { "additionalContext": "%s" } }' "$session_conte
 <tr><td>1</td><td>以 <code>Use when...</code> 开头</td><td>直接告诉 AI "什么时候用我"</td></tr>
 <tr><td>2</td><td>只写触发条件，不写流程</td><td>别剧透 skill 里要做什么</td></tr>
 <tr><td>3</td><td>用第三人称</td><td>不要写 "I can help you..."</td></tr>
-<tr><td>4</td><td>写"症状"，不写"工具"</td><td>写"race condition"而不是"setTimeout"</td></tr>
+<tr><td>4</td><td>写"症状"，不写"工具"</td><td>写"race condition（竞态条件）"而不是"setTimeout"</td></tr>
 <tr><td>5</td><td>技术无关（除非 skill 本身就是技术特定的）</td><td>别把 skill 绑死在某门技术上</td></tr>
 </table>
 <p>今天这节课，我们用 5 个 superpowers 真实场景来练手。每个场景的玩法是：<strong>先盖住答案，自己试着写一句，再和 superpowers 作者写的真实版本对比</strong>。差距就是你的学习点。</p>
@@ -1539,10 +1539,10 @@ ensures an isolated workspace exists via native tools or git worktree fallback
 <table>
 <tr><th>错误类型</th><th>典型样子</th><th>为什么错</th></tr>
 <tr><td><strong>只写"做什么"，不写"何时用"</strong></td><td>"A skill for debugging."</td><td>AI 无法判断什么时候该匹配，等于没用</td></tr>
-<tr><td><strong>第一人称</strong></td><td>"I can help you..."</td><td>description 会被注入 system prompt，第一人称会让 AI 困惑"这是谁在说话"</td></tr>
+<tr><td><strong>第一人称</strong></td><td>"I can help you..."</td><td>description 会被注入 system prompt（系统提示词），第一人称会让 AI 困惑"这是谁在说话"</td></tr>
 <tr><td><strong>剧透流程</strong></td><td>"Use TDD: write test, see fail, write code, refactor"</td><td>AI 会照着 description 做而跳过读正文（2.2 课详细讲这个坑）</td></tr>
 <tr><td><strong>绑死技术</strong></td><td>"Use when writing Jest tests"</td><td>把通用方法绑死在一个工具上，用户用别的框架就匹配不到</td></tr>
-<tr><td><strong>太抽象</strong></td><td>"For async testing"</td><td>没给具体症状，AI 不知道什么情况算"async testing"</td></tr>
+<tr><td><strong>太抽象</strong></td><td>"For async testing（异步测试）"</td><td>没给具体症状，AI 不知道什么情况算"async testing"</td></tr>
 </table>
 <div class="callout tip">
 <span class="icon">✅</span>
@@ -1838,7 +1838,7 @@ requesting-code-review:
 <h3>3.2 为什么——一个真实的翻车案例</h3>
 <p>superpowers 作者在 writing-skills 里记录了一个真实测试发现，这是理解这条规则的最佳材料。我们原汁原味看一遍：</p>
 <blockquote>
-<p>subagent-driven-development 这个 skill 的内部流程图（flowchart）里，明确要求<strong>每个任务后做两次 code review</strong>：第一次检查"是否符合作业规范"，第二次检查"代码质量"。</p>
+<p>subagent-driven-development 这个 skill 的内部流程图（flowchart）里，明确要求<strong>每个任务后做两次 code review（代码审查）</strong>：第一次检查"是否符合作业规范"，第二次检查"代码质量"。</p>
 <p>一开始，它的 description 是这样写的：</p>
 <pre><code>❌ description: Use when executing plans - dispatches subagent per task
    with code review between tasks
@@ -1863,7 +1863,7 @@ requesting-code-review:
 <p>判断方法很简单：写完 description 后，逐字读一遍，<strong>把所有"会做什么"的动词都删掉</strong>（dispatches、writes、creates、performs、runs...）。如果删完之后什么都没剩，说明你写成了流程提要，要重写。</p>
 
 <h2>四、规则 3：用第三人称</h2>
-<p>description 是要被<strong>注入 system context</strong>（系统上下文）的——也就是说，它会变成 AI"脑子里"的一条背景知识。所以它必须用<strong>客观的第三人称</strong>来写，像是 skill 在自我介绍，而不是 AI 在说话。</p>
+<p>description 是要被<strong>注入 system context（系统上下文）</strong>（系统上下文）的——也就是说，它会变成 AI"脑子里"的一条背景知识。所以它必须用<strong>客观的第三人称</strong>来写，像是 skill 在自我介绍，而不是 AI 在说话。</p>
 <p>对比：</p>
 <pre><code>❌ description: I can help you with async tests when they're flaky.
    <span class="cmt">// 第一人称 "I"——AI 读了会困惑："这是谁在说话？是我吗？"</span>
@@ -1993,7 +1993,7 @@ or "permission denied" errors...
 <p><strong>规则 1</strong>：以 <code>Use when...</code> 开头。</p>
 <p><strong>规则 2（最重要）</strong>：只写触发条件，<strong>绝不</strong>总结流程。真实案例：subagent-driven-development 写了流程导致 AI 只做一次 review。</p>
 <p><strong>规则 3</strong>：第三人称，不用 I/you。</p>
-<p><strong>规则 4</strong>：写症状（race condition），不写工具（setTimeout）。</p>
+<p><strong>规则 4</strong>：写症状（race condition（竞态条件）），不写工具（setTimeout）。</p>
 <p><strong>规则 5</strong>：技术无关，除非 skill 本身技术特定。</p>
 <p><strong>CSO</strong>：铺关键词——错误信息、症状词、同义词、工具名。</p>
 </div>
@@ -2096,7 +2096,7 @@ underlying issues.
 **Core principle:** ALWAYS find root cause before attempting fixes.
 Symptom fixes are failure.
 </code></pre>
-<p>短短三行，做对了三件事：① 点出<strong>反面</strong>（random fixes 浪费时间）；② 给出<strong>核心原则</strong>（先找根因）；③ 用一句话（<code>Symptom fixes are failure</code>）把态度亮出来。</p>
+<p>短短三行，做对了三件事：① 点出<strong>反面</strong>（random fixes（随机修补） 浪费时间）；② 给出<strong>核心原则</strong>（先找根因）；③ 用一句话（<code>Symptom fixes are failure</code>）把态度亮出来。</p>
 <p><strong>字数建议</strong>：Overview 控制在 50-100 词（约 2-4 句话）。不要写成长篇介绍——AI 读 Overview 是为了"快速判断这 skill 是干嘛的"，不是来读背景知识的。</p>
 <div class="callout tip">
 <span class="icon">✅</span>
@@ -2196,7 +2196,7 @@ From debugging sessions:
 - First-time fix rate: 95% vs 40%
 - New bugs introduced: Near zero vs common
 </code></pre>
-<p>四组对比数据，强力证明"系统化调试完胜瞎改"。这种数据对 discipline-enforcing skill 特别有用——它让 AI 相信"按流程来真的更快"，从而更愿意遵守。</p>
+<p>四组对比数据，强力证明"系统化调试完胜瞎改"。这种数据对 discipline-enforcing（纪律强制类） skill 特别有用——它让 AI 相信"按流程来真的更快"，从而更愿意遵守。</p>
 <p><strong>什么时候写</strong>：有真实数据时写；没有就跳过，不要编造。</p>
 
 <h2>十、何时该用流程图（flowchart）</h2>
@@ -2310,7 +2310,7 @@ From debugging sessions:
 <h3>2.2 适用场景</h3>
 <ul>
 <li>内容简单、篇幅不长（通常 SKILL.md 在 500 行以内）</li>
-<li>没有 heavy reference（heavy reference = 大段参考材料，如 API 文档、详细规范）</li>
+<li>没有 heavy reference（heavy reference（重型参考材料） = 大段参考材料，如 API 文档、详细规范）</li>
 <li>没有可复用的脚本工具</li>
 <li>讲的是<strong>原则、概念、思维模式</strong>，不是具体技术细节</li>
 </ul>
@@ -2393,7 +2393,7 @@ From debugging sessions:
 <div class="callout-body">最危险的错误：把<strong>核心流程或原则</strong>拆到 references 文件里。AI 可能只读 SKILL.md 就开始干活，永远碰不到那个文件，skill 的核心教导就废了。<strong>原则和流程永远 inline，只有"参考资料"才能拆出去。</strong></div>
 </div>
 
-<h2>六、扁平命名空间（flat namespace）</h2>
+<h2>六、扁平命名空间（flat namespace（扁平命名空间））</h2>
 <p>最后讲一个组织层面的规则：<strong>所有 skill 放在同一个 skills/ 目录下，不嵌套</strong>。</p>
 <pre><code>skills/
 ├── brainstorming/
@@ -2601,7 +2601,7 @@ regardless of perceived simplicity.
 <p>看 <code>User approves design?</code> 这个菱形节点：用户不同意就回到"Present design sections"重新提方案，同意了才进入"Write design doc"。这是典型的<strong>带退路的循环</strong>——必须用流程图才能表达清楚，Checklist 表达不了"如果 No 怎么办"。</p>
 <p>注意节点的命名：全部用<strong>有语义的英文短语</strong>（Present design sections、User approves design?），没有用 helper1、step3 这种无意义标签——这正是 2.3 课强调的"流程图反模式"之一（用无意义标签）的正面教材。</p>
 
-<h2>八、设计决策 6：明确的终态（terminal state）</h2>
+<h2>八、设计决策 6：明确的终态（terminal state（终态））</h2>
 <p>流程图的最后一个节点是 <code>Invoke writing-plans skill</code>，画成了<strong>双圈</strong>（doublecircle，在 graphviz 里双圈表示"终态/结束态"）。正文里有一句极其明确的话：</p>
 <blockquote>
 <p><strong>The terminal state is invoking writing-plans.</strong> Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.</p>
@@ -2832,7 +2832,7 @@ NEVER skip these steps, even if the user says "just do it".
 <h2>一、为什么用流程图</h2>
 <p>有些逻辑用文字描述，AI 容易读漏。比如：</p>
 <blockquote>"先看 bug 能不能稳定复现。如果能，写测试；如果不能，先加日志收集信息，等收集到足够信息再写测试。但如果加了 3 次日志还没复现，就停下来问用户。"</blockquote>
-<p>这段话有<strong>两个决策点</strong>（能不能复现、加了几次日志）和<strong>一个提前退出</strong>（停下来问用户）。AI 读纯文字时，很容易漏掉"加 3 次就停"这个 <span class="en">terminal state</span>（终止状态），结果就一直无限加日志。</p>
+<p>这段话有<strong>两个决策点</strong>（能不能复现、加了几次日志）和<strong>一个提前退出</strong>（停下来问用户）。AI 读纯文字时，很容易漏掉"加 3 次就停"这个 <span class="en">terminal state（终态）</span>（终止状态），结果就一直无限加日志。</p>
 <p>流程图把这些岔路画出来，AI 一眼就能看到所有出口：</p>
 <pre><code>digraph reproduce_bug {
     "Reproducible?" [shape=diamond];
@@ -2985,7 +2985,7 @@ NEVER skip these steps, even if the user says "just do it".
     duration: `20min`,
     goal: `学完能说出什么是 Rationalization（合理化借口），会用两列表格 | Thought | Reality | 堵住 AI 的偷懒念头。`,
     body: `
-<h2>一、什么是 Rationalization</h2>
+<h2>一、什么是 Rationalization（合理化借口）</h2>
 <p><span class="en">Rationalization</span>（合理化）原本是心理学词汇，指人给自己的错误行为编一个看似合理的借口。在 superpowers 里，它特指<strong>AI 给自己偷懒编的理由</strong>。</p>
 <p>举例：你让 AI 写测试，AI 可能心里冒出这个念头：</p>
 <blockquote>"这个函数太简单了，写测试浪费时间。先把功能写完，测试回头补。"</blockquote>
@@ -3018,7 +3018,7 @@ NEVER skip these steps, even if the user says "just do it".
 <p>左列写 AI 真实会冒出来的<strong>念头</strong>（用引号引起来，像内心独白）。右列写<strong>为什么这个念头是错的</strong>。结构永远是"借口 → 打脸"。</p>
 
 <h2>四、superpowers 的两个真实例子</h2>
-<h3>例 1：using-superpowers 的 Red Flags 表</h3>
+<h3>例 1：using-superpowers 的 Red Flags（红旗警告） 表</h3>
 <p>using-superpowers 列了一张表，堵住 AI 跳过 skill 的借口：</p>
 <table>
 <tr><th>Red Flag（危险信号）</th><th>Reality（现实）</th></tr>
@@ -3255,7 +3255,7 @@ NEVER skip these steps, even if the user says "just do it".
 <li><strong>正例</strong>：好的写法长什么样。</li>
 <li><strong>反例</strong>：常见的错误长什么样，以及<strong>为什么</strong>它错。</li>
 </ul>
-<p>这就像教小孩认真假币——只看真币不够，看过假币才知道坑在哪。心理学上叫<strong>对比学习</strong>（contrastive learning），反例让正例的边界更清晰。</p>
+<p>这就像教小孩认真假币——只看真币不够，看过假币才知道坑在哪。心理学上叫<strong>对比学习</strong>（contrastive learning（对比学习）），反例让正例的边界更清晰。</p>
 <div class="callout key"><span class="icon">💡</span><div class="callout-body">Bad/Good 对比 = 给 AI 同时看"坑"和"正道"，比单看正道记得更牢。</div></div>
 
 <h2>二、superpowers 的三种对比写法</h2>
@@ -3318,7 +3318,7 @@ allowed-tools: Write, Edit</code></pre>
 <h3>反模式 1：Multi-Language Dilution（多语言稀释）</h3>
 <p>writing-skills 在 SKILL.md 里专门警告过这个 <span class="en">anti-pattern</span>（反模式）：</p>
 <blockquote>不要为了"全面"，把同一个 Bad/Good 例子用 5 种语言（Python、JS、Go、Rust、Java）各写一遍。</blockquote>
-<p>这叫 <strong>Multi-Language Dilution</strong>（多语言稀释）。问题在于：</p>
+<p>这叫 <strong>Multi-Language Dilution（多语言稀释）</strong>（多语言稀释）。问题在于：</p>
 <ul>
 <li>每个语言的例子占大量 token，但表达的是<strong>同一个道理</strong>。</li>
 <li>AI 读到第 3 个语言就注意力涣散，反而错过核心。</li>
@@ -3476,7 +3476,7 @@ allowed-tools: Write, Edit</code></pre>
 <li><strong>核心流程</strong>：skill 的主工作流（第一步做什么、第二步做什么）。</li>
 <li><strong>原则和概念</strong>：说服 AI 的原理、关键定义。</li>
 <li><strong>小型流程图</strong>：非显然决策点。</li>
-<li><strong>快速参考表</strong>：Rationalization 表、命名规范表。</li>
+<li><strong>快速参考表</strong>：Rationalization（合理化借口） 表、命名规范表。</li>
 </ul>
 <h3>📁 应该拆到 references/（按需读）</h3>
 <ul>
@@ -3508,11 +3508,11 @@ allowed-tools: Write, Edit</code></pre>
 <div class="callout warn"><span class="icon">⚠️</span><div class="callout-body">渐进式披露 ≠ 拆得越细越好。<strong>入口要完整，附件才拆分</strong>。</div></div>
 
 <h2>七、进阶：cross-reference（交叉引用）</h2>
-<p>当 skill 之间有重叠内容，不要复制，要用 <span class="en">cross-reference</span>（交叉引用）。writing-skills 明确说：</p>
+<p>当 skill 之间有重叠内容，不要复制，要用 <span class="en">cross-reference（交叉引用）</span>（交叉引用）。writing-skills 明确说：</p>
 <ul>
 <li>"这个概念在 superpowers:test-driven-development 里讲过了，这里不重复。"</li>
 <li>用 <code>@skill-name</code> 语法引用别的 skill。</li>
-<li>好处：单一信息源（single source of truth），改一处全更新。</li>
+<li>好处：单一信息源（single source of truth（单一信息源）），改一处全更新。</li>
 </ul>
 <div class="callout info"><span class="icon">📌</span><div class="callout-body">跨 skill 重叠内容用 cross-reference，不要复制。复制会导致改一处忘改另一处。</div></div>
 
@@ -3624,7 +3624,7 @@ allowed-tools: Write, Edit</code></pre>
 
 <table>
 <tr><th><span class="en">Criterion（标准）</span></th><th>含义</th><th>举例</th></tr>
-<tr><td><span class="en">Not intuitively obvious</span><br><span class="cmt">不是直觉显然的</span></td><td>这个技巧你当初是踩了坑才学会的，不是看一眼就会</td><td>"修 bug 前必须先复现"——很多人一上来就想改代码</td></tr>
+<tr><td><span class="en">Not intuitively obvious（直觉显然）</span><br><span class="cmt">不是直觉显然的</span></td><td>这个技巧你当初是踩了坑才学会的，不是看一眼就会</td><td>"修 bug 前必须先复现"——很多人一上来就想改代码</td></tr>
 <tr><td><span class="en">Reference again across projects</span><br><span class="cmt">跨项目会复用</span></td><td>下个项目你还会查它、还会用它</td><td>异步测试的等待技巧，哪个项目都用得上</td></tr>
 <tr><td><span class="en">Pattern applies broadly</span><br><span class="cmt">模式普适</span></td><td>不是只对某一个仓库、某一个团队成立</td><td>"先写测试再写代码"是普适的</td></tr>
 <tr><td><span class="en">Others would benefit</span><br><span class="cmt">别人也会受益</span></td><td>换一个 AI 实例、换一个同事，读了这个也会变强</td><td>调试时的根因追踪法</td></tr>
@@ -3638,10 +3638,10 @@ allowed-tools: Write, Edit</code></pre>
 
 <table>
 <tr><th><span class="en">Don't</span></th><th>为什么不做 skill</th><th>正确去处</th></tr>
-<tr><td><span class="en">One-off solutions</span><br><span class="cmt">一次性方案</span></td><td>下次不会再用，写下来只是噪音</td><td>直接做完就忘</td></tr>
+<tr><td><span class="en">One-off solutions（一次性方案）</span><br><span class="cmt">一次性方案</span></td><td>下次不会再用，写下来只是噪音</td><td>直接做完就忘</td></tr>
 <tr><td><span class="en">Standard practices well-documented elsewhere</span><br><span class="cmt">别处已有详细文档</span></td><td>重复造轮子，维护两份会过时</td><td>链官方文档</td></tr>
-<tr><td><span class="en">Project-specific conventions</span><br><span class="cmt">项目特定约定</span></td><td>只对当前仓库成立，不可复用</td><td>放进 <code>CLAUDE.md</code></td></tr>
-<tr><td><span class="en">Mechanical constraints</span><br><span class="cmt">机器可强制的约束</span></td><td>能用正则 / 校验自动化的，别浪费文档</td><td>写 regex / validation 脚本</td></tr>
+<tr><td><span class="en">Project-specific conventions（项目特定约定）</span><br><span class="cmt">项目特定约定</span></td><td>只对当前仓库成立，不可复用</td><td>放进 <code>CLAUDE.md</code></td></tr>
+<tr><td><span class="en">Mechanical constraints（机器可强制的约束）</span><br><span class="cmt">机器可强制的约束</span></td><td>能用正则 / 校验自动化的，别浪费文档</td><td>写 regex / validation 脚本</td></tr>
 </table>
 
 <div class="callout warn"><span class="icon">⚠️</span><div class="callout-body">第 4 条最容易踩坑：如果一个约束能用 <code>pre-commit</code> 钩子或 lint 规则挡住，就别写成 skill。skill 的本职是"判断题"，不是"选择题"。</div></div>
@@ -3653,7 +3653,7 @@ allowed-tools: Write, Edit</code></pre>
 <table>
 <tr><th>AI 的老毛病</th><th>对应选题信号</th></tr>
 <tr><td>健忘（forgetful）</td><td>这条技巧它每次都要重新学 → 值得固化成 skill</td></tr>
-<tr><td>爱走捷径（drifts to shortcuts）</td><td>AI 会忍不住跳过这步 → 需要 discipline-enforcing skill</td></tr>
+<tr><td>爱走捷径（drifts to shortcuts）</td><td>AI 会忍不住跳过这步 → 需要 discipline-enforcing（纪律强制类） skill</td></tr>
 <tr><td>不会举一反三（doesn't generalize）</td><td>换个项目就忘了 → 跨项目复用强，适合 skill</td></tr>
 <tr><td>提示词膨胀（prompt bloat）</td><td>反复说同一件事 → 该提炼成可复用 skill</td></tr>
 </table>
@@ -3949,7 +3949,7 @@ B) 直接提交能跑的方案
 
 <p>writing-skills 原文说得很直白：</p>
 
-<blockquote>"Don't add extra content for hypothetical cases."（别为假设性的情况添加额外内容。）</blockquote>
+<blockquote>"Don't add extra content for hypothetical cases（假设性场景）."（别为假设性的情况添加额外内容。）</blockquote>
 
 <p>这是 GREEN 阶段最容易犯的错：写着写着就忍不住加"万一以后……"、"如果遇到……"。记住——<strong>RED 阶段没看到的失败，GREEN 阶段一律不写</strong>。你写的每一句话，都要能指回 RED 笔记里某条具体的借口。</p>
 
@@ -3982,9 +3982,9 @@ B) 直接提交能跑的方案
 
 <table>
 <tr><th>写法</th><th>评价</th></tr>
-<tr><td><span class="en">"Use when executing plans - dispatches subagent per task with code review between tasks"</span></td><td>❌ BAD：总结了 workflow</td></tr>
+<tr><td><span class="en">"Use when executing plans - dispatches subagent per task with code review（代码审查） between tasks"</span></td><td>❌ BAD：总结了 workflow</td></tr>
 <tr><td><span class="en">"For TDD - write test first, watch it fail, write minimal code, refactor"</span></td><td>❌ BAD：流程细节太多</td></tr>
-<tr><td><span class="en">"Use when executing implementation plans with independent tasks in the current session"</span></td><td>✅ GOOD：只有触发条件</td></tr>
+<tr><td><span class="en">"Use when executing implementation plans（实施计划） with independent tasks（独立任务） in the current session"</span></td><td>✅ GOOD：只有触发条件</td></tr>
 <tr><td><span class="en">"Use when implementing any feature or bugfix, before writing implementation code"</span></td><td>✅ GOOD：只说何时用</td></tr>
 </table>
 
@@ -4176,7 +4176,7 @@ No exceptions:
 
 <h3>武器 2：Address Spirit vs Letter Arguments（对付"精神 vs 字面"）</h3>
 
-<p>这是专门对付 <code>"I'm following the spirit not the letter"</code> 这类借口的。在 skill 靠前的位置加一条<strong>基础原则</strong>（foundational principle）：</p>
+<p>这是专门对付 <code>"I'm following the spirit not the letter"</code> 这类借口的。在 skill 靠前的位置加一条<strong>基础原则</strong>（foundational principle（基础原则））：</p>
 
 <blockquote>Violating the letter of the rules is violating the spirit of the rules.（违反字面规则，就是违反规则精神。）</blockquote>
 
@@ -4184,7 +4184,7 @@ No exceptions:
 
 <div class="callout tip"><span class="icon">✅</span><div class="callout-body">真实案例（5.2 课详讲）：TDD skill 第一版加了"为什么顺序重要"，AI 还是用"精神不是字面"破戒；加了上面这句话后，AI 才乖乖选了正确选项。</div></div>
 
-<h3>武器 3：Build Rationalization Table（建借口对照表）</h3>
+<h3>武器 3：Build Rationalization（合理化借口） Table（建借口对照表）</h3>
 
 <p>把<strong>所有</strong>测试迭代里见过的借口，汇总成一张表。<span class="cmt">每发现一个新借口，就加一行。</span></p>
 
@@ -4197,7 +4197,7 @@ No exceptions:
 
 <p>这张表的作用：让 AI 一读到自己的借口，就立刻看到<strong>对应的反驳</strong>。相当于把"反借口弹药"摆在明面上。</p>
 
-<h3>武器 4：Create Red Flags List（建红旗清单）</h3>
+<h3>武器 4：Create Red Flags（红旗警告） List（建红旗清单）</h3>
 
 <p>红旗清单是给 AI <strong>自查</strong>用的。列出一串"当你脑子里冒出这些念头时，立刻停下"：<span class="cmt">让 AI 主动识别自己在合理化。</span></p>
 
@@ -4370,7 +4370,7 @@ No exceptions:
 
 <h3>第 1 步：选题（4.1 检查）</h3>
 <ul>
-<li>not intuitively obvious？✅ AI 最爱直接动手不思考</li>
+<li>not intuitively obvious（直觉显然）？✅ AI 最爱直接动手不思考</li>
 <li>跨项目复用？✅ 每个项目都要写功能</li>
 <li>模式普适？✅ 不绑定具体技术栈</li>
 <li>别人受益？✅ 任何 AI 实例都该这么做</li>
@@ -4442,7 +4442,7 @@ description: Use when creating any feature, component, or modifying behavior, be
 
 <p>原因很简单：批量写的 skill 没有 RED 阶段，等于<strong>凭空想象</strong> AI 的失败，写出来的对策全是 hypothetical（假设性）的，到真实场景根本不顶用。</p>
 
-<h2>四、Iron Law：铁律再强调</h2>
+<h2>四、Iron Law（铁律）：铁律再强调</h2>
 
 <p>writing-skills 有一条贯穿全文的铁律（Iron Law），你已经在 4.2 见过，这里再钉一次：<span class="cmt">这是 superpowers 最高纪律。</span></p>
 
@@ -4580,7 +4580,7 @@ Consider writing tests first when feasible.
 // ❌ 弱
 有些人觉得 TodoWrite 对 checklist 有帮助。
 </code></pre>
-<div class="callout tip"><span class="icon">✅</span><div class="callout-body">superpowers 里常见的 <code>"Testing revealed that..."</code>（测试发现……）也是 Social Proof：用"实测数据"建立规范感，让 AI 觉得"这是被验证过的标准做法"。</div></div>
+<div class="callout tip"><span class="icon">✅</span><div class="callout-body">superpowers 里常见的 <code>"Testing revealed that..."</code>（测试发现……）也是 Social Proof（社会证明）：用"实测数据"建立规范感，让 AI 觉得"这是被验证过的标准做法"。</div></div>
 
 <h3>原则 5：Unity（共同体）</h3>
 <p><strong>是什么：</strong>共享身份、"我们感"、群体归属。</p>
@@ -4750,7 +4750,7 @@ This is not negotiable.
 
 <p>writing-skills 的借口表里有一条专门说这个：</p>
 
-<blockquote>"Academic review is enough"（学术审查就够了）→ Reading ≠ using. Test application scenarios.（读不等于用，要测应用场景。）</blockquote>
+<blockquote>"Academic review（学术审查） is enough"（学术审查就够了）→ Reading ≠ using. Test application scenarios.（读不等于用，要测应用场景。）</blockquote>
 
 <p>用 subagent 测有三大好处：</p>
 
@@ -4964,7 +4964,7 @@ A 是唯一可接受的答案？
     duration: `20min`,
     goal: `学完能背出 superpowers 的铁律，识别 4 大反模式，并用借口表反驳常见的偷懒理由。`,
     body: `
-<h2>一、Iron Law：贯穿 superpowers 的铁律</h2>
+<h2>一、Iron Law（铁律）：贯穿 superpowers 的铁律</h2>
 
 <p>writing-skills 里有一条<strong>最高纪律</strong>，叫 Iron Law（铁律）。它和 TDD 的铁律一模一样，只是套到了文档上：<span class="cmt">这是不可协商的红线。</span></p>
 
@@ -4977,7 +4977,7 @@ A 是唯一可接受的答案？
 <li><strong>编辑</strong>现有 skill：哪怕只改一句话、加一节，也要先跑测试。<span class="cmt">编辑不测试 = 同样违规。</span></li>
 </ol>
 
-<div class="callout danger"><span class="icon">🚫</span><div class="callout-body">违规的后果，writing-skills 写得斩钉截铁："Write skill before testing? Delete it. Start over."（先写 skill 再测试？删掉，重来。）"No exceptions: Not for 'simple additions'. Not for 'just adding a section'. Delete means delete."</div></div>
+<div class="callout danger"><span class="icon">🚫</span><div class="callout-body">违规的后果，writing-skills 写得斩钉截铁："Write skill before testing? Delete it. Start over."（先写 skill 再测试？删掉，重来。）"No exceptions: Not for 'simple additions（小改动）'. Not for 'just adding a section'. Delete means delete."</div></div>
 
 <h2>二、为什么铁律这么严</h2>
 
@@ -5033,7 +5033,7 @@ step2 [label="read file"];
 <tr><td>"I'll test if problems emerge"（出问题再测）</td><td>出问题 = AI 用不了 skill。部署前就得测。</td></tr>
 <tr><td>"Too tedious to test"（测试太繁琐）</td><td>测试比线上调试坏 skill 省事多了。</td></tr>
 <tr><td>"I'm confident it's good"（我有信心）</td><td>过度自信必有 issues。照样测。</td></tr>
-<tr><td>"Academic review is enough"（学术审查够了）</td><td>读 ≠ 用。测应用场景。</td></tr>
+<tr><td>"Academic review（学术审查） is enough"（学术审查够了）</td><td>读 ≠ 用。测应用场景。</td></tr>
 <tr><td>"No time to test"（没时间测）</td><td>部署未测 skill，后面修更费时。</td></tr>
 </table>
 
@@ -5146,7 +5146,7 @@ step2 [label="read file"];
 
 <table>
 <tr><th>如果涉及……</th><th>类型</th><th>写法</th></tr>
-<tr><td>纪律 / 规则（discipline / rule）</td><td>Rigid</td><td>强制标签、Checklist、借口表、Iron Law 声明</td></tr>
+<tr><td>纪律 / 规则（discipline / rule）</td><td>Rigid</td><td>强制标签、Checklist、借口表、Iron Law（铁律） 声明</td></tr>
 <tr><td>模式 / 风格（pattern / style）</td><td>Flexible</td><td>原则描述、多个适用场景、说明"何时变通"</td></tr>
 </table>
 
@@ -5160,7 +5160,7 @@ step2 [label="read file"];
 <li><strong>大量强制标签</strong>：<code>YOU MUST</code>、<code>No exceptions</code>、<code><EXTREMELY-IMPORTANT></code>（用 Authority 说服原则）。</li>
 <li><strong>明确的 STOP 点</strong>：写清楚"到这里必须停下"，防止 AI 一路冲过去。</li>
 <li><strong>Iron Law 声明</strong>：明确写出铁律，如"NO SKILL WITHOUT A FAILING TEST FIRST"。</li>
-<li><strong>详细的反例表</strong>：Rationalization Table + Red Flags List，把借口逐一堵死。</li>
+<li><strong>详细的反例表</strong>：Rationalization（合理化借口） Table + Red Flags（红旗警告） List，把借口逐一堵死。</li>
 </ol>
 
 <pre><code>// Rigid skill 典型片段（来自 using-superpowers）
@@ -5304,7 +5304,7 @@ YOU MUST USE IT. This is not negotiable.
 <div class="callout key"><span class="icon">💡</span><div class="callout-body">plugin（插件）= 一个目录 + 一份清单文件 plugin.json + 一个 skills/ 文件夹。skill 是单个技能，plugin 是技能的打包盒。</div></div>
 
 <h2>二、plugin 长什么样：真实 superpowers 的目录结构</h2>
-<p>我们直接看 superpowers 这个真实 plugin 的目录树（directory tree，目录树）。它在你电脑上的路径是 <code>~/.zcode/cli/plugins/cache/zcode-plugins-official/superpowers/5.1.0/</code>。</p>
+<p>我们直接看 superpowers 这个真实 plugin 的目录树（directory tree（目录树），目录树）。它在你电脑上的路径是 <code>~/.zcode/cli/plugins/cache/zcode-plugins-official/superpowers/5.1.0/</code>。</p>
 
 <pre><code>superpowers/5.1.0/                 <span class="cmt"># 插件根目录</span>
 ├── .zcode-plugin/                 <span class="cmt"># 插件清单目录（注意前面有 dot）</span>
@@ -5335,7 +5335,7 @@ YOU MUST USE IT. This is not negotiable.
   <li><b>技能目录</b>：<code>skills/</code>。里面放真正的 skill。superpowers 在这个目录下放了 14 个子目录，每个子目录是一个 skill。</li>
 </ul>
 
-<div class="callout warn"><span class="icon">⚠️</span><div class="callout-body">注意清单文件的路径是 <code>.zcode-plugin/plugin.json</code>。开头那个 <code>.</code> 不能漏，目录名前面带点表示"隐藏目录"（hidden directory），这是 zcode 客户端约定俗成的查找位置。</div></div>
+<div class="callout warn"><span class="icon">⚠️</span><div class="callout-body">注意清单文件的路径是 <code>.zcode-plugin/plugin.json</code>。开头那个 <code>.</code> 不能漏，目录名前面带点表示"隐藏目录"（hidden directory（隐藏目录）），这是 zcode 客户端约定俗成的查找位置。</div></div>
 
 <h3>2.2 可选的文件</h3>
 <p>除了必须的两样，下面这些都是 optional（可选的）：</p>
@@ -5370,7 +5370,7 @@ YOU MUST USE IT. This is not negotiable.
 <table>
   <tr><th>字段</th><th><span class="en">中文</span></th><th>含义</th></tr>
   <tr><td><code>name</code></td><td><span class="cmt">名字</span></td><td>plugin 的唯一标识，全小写、用连字符。</td></tr>
-  <tr><td><code>version</code></td><td><span class="cmt">版本号</span></td><td>遵循语义化版本（Semantic Versioning），格式 主版本.次版本.修订号。</td></tr>
+  <tr><td><code>version</code></td><td><span class="cmt">版本号</span></td><td>遵循语义化版本（Semantic Versioning（语义化版本控制）），格式 主版本.次版本.修订号。</td></tr>
   <tr><td><code>description</code></td><td><span class="cmt">描述</span></td><td>一句话说清楚 plugin 是干嘛的。</td></tr>
   <tr><td><code>author</code></td><td><span class="cmt">作者</span></td><td>对象，包含 name、email、url。</td></tr>
   <tr><td><code>homepage</code> / <code>repository</code></td><td><span class="cmt">主页 / 仓库</span></td><td>两个 URL，指向项目网站和代码仓库。</td></tr>
@@ -5418,7 +5418,7 @@ YOU MUST USE IT. This is not negotiable.
 <table>
   <tr><th><span class="en">English</span></th><th>中文</th><th>例句/说明</th></tr>
   <tr><td><span class="en">plugin</span></td><td><span class="cmt">插件</span></td><td>A plugin is a packaged bundle of skills.</td></tr>
-  <tr><td><span class="en">manifest</span></td><td><span class="cmt">清单</span></td><td>plugin.json is the manifest file.</td></tr>
+  <tr><td><span class="en">manifest</span></td><td><span class="cmt">清单</span></td><td>plugin.json is the manifest file（清单文件）.</td></tr>
   <tr><td><span class="en">directory</span></td><td><span class="cmt">目录</span></td><td>The skills directory holds all skills.</td></tr>
   <tr><td><span class="en">compile</span></td><td><span class="cmt">编译</span></td><td>Plugins need no compile step.</td></tr>
   <tr><td><span class="en">optional</span></td><td><span class="cmt">可选的</span></td><td>The hooks directory is optional.</td></tr>
@@ -5472,7 +5472,7 @@ YOU MUST USE IT. This is not negotiable.
 
 <p>这一节就要揭开这个秘密。答案只有两个词：<b>SessionStart hook</b>。</p>
 
-<div class="callout key"><span class="icon">💡</span><div class="callout-body">superpowers 自动生效的真相：它在每次会话启动（startup）时，自动跑一段脚本，把入口 skill 的全文"塞进"AI 的系统提示词（system prompt）里。</div></div>
+<div class="callout key"><span class="icon">💡</span><div class="callout-body">superpowers 自动生效的真相：它在每次会话启动（startup）时，自动跑一段脚本，把入口 skill 的全文"塞进"AI 的系统提示词（system prompt（系统提示词））里。</div></div>
 
 <h2>二、什么是 hook（钩子）？</h2>
 <p>hook（钩子）是一个通用编程概念：在某个事件发生时，自动触发执行的一段代码。在 zcode/Claude Code 体系里，hook 的"事件"可以是：</p>
@@ -5809,9 +5809,9 @@ exec bash "\${SCRIPT_DIR}/\${SCRIPT_NAME}" "$@"
 <p>看到这里你可能会问：值得吗？为了一个 wrapper 搞这么复杂。答案是值得的，理由有三：</p>
 
 <ul>
-  <li><b>单一代码源（single source of truth）</b>：只维护一份 run-hook.cmd，改 bug 只改一个地方，永远不会出现 Windows 版和 Unix 版不一致。</li>
+  <li><b>单一代码源（single source of truth（单一信息源））</b>：只维护一份 run-hook.cmd，改 bug 只改一个地方，永远不会出现 Windows 版和 Unix 版不一致。</li>
   <li><b>利用 Git Bash 普及度</b>：Windows 开发者几乎都装了 Git for Windows，它自带 bash。借用这个事实，superpowers 不需要要求用户额外装 WSL 或 Cygwin。</li>
-  <li><b>优雅降级（graceful degradation）</b>：注释里写得很清楚——"No bash found - exit silently rather than error"。如果系统真没 bash，脚本不报错，只是 SessionStart 注入功能悄悄失效，plugin 的其他功能（skill 加载）照样能用。</li>
+  <li><b>优雅降级（graceful degradation（优雅降级））</b>：注释里写得很清楚——"No bash found - exit silently rather than error"。如果系统真没 bash，脚本不报错，只是 SessionStart 注入功能悄悄失效，plugin 的其他功能（skill 加载）照样能用。</li>
 </ul>
 
 <div class="callout warn"><span class="icon">⚠️</span><div class="callout-body">注意"优雅降级"这个设计：注释明确说"插件仍然能工作，只是没有 SessionStart 上下文注入"。这是非常成熟的工程思维——核心功能挂了不影响其他功能，而不是一损俱损。</div></div>
@@ -6024,7 +6024,7 @@ mkdir -p my-translation-plugin/skills/my-translation
 <div class="callout danger"><span class="icon">🚫</span><div class="callout-body">禁止心态："我测过一次没问题就发吧"。一次成功不代表稳定。至少在 3 种不同用户提问方式下都触发，才算过关。</div></div>
 
 <h2>七、版本号怎么管</h2>
-<p>plugin.json 里的 version（版本号）不是随便写的。业界通用的规则叫语义化版本（Semantic Versioning），格式是 <code>主版本.次版本.修订号</code>：</p>
+<p>plugin.json 里的 version（版本号）不是随便写的。业界通用的规则叫语义化版本（Semantic Versioning（语义化版本控制）），格式是 <code>主版本.次版本.修订号</code>：</p>
 <table>
   <tr><th>改了什么</th><th>该升哪一位</th><th>例子</th></tr>
   <tr><td>修了 bug、没改功能</td><td>升修订号（最右）</td><td>1.0.0 → 1.0.1</td></tr>
@@ -6101,7 +6101,7 @@ mkdir -p my-translation-plugin/skills/my-translation
 <h2>一、毕业啦！最后一战</h2>
 <p>恭喜你走到了最后一课。前面六个模块、二十多节课，你学了 skill 是什么、怎么写、怎么用 TDD 打磨、怎么穿透 AI 的注意力、最后怎么打包成 plugin。现在，是时候把你学到的全部串起来，做出一个真正属于你自己的作品了。</p>
 
-<p>这个毕业项目（graduate project）不要求你做出 superpowers 那样庞大的东西——superpowers 有 14 个 skill，是几年迭代的结果。你的目标是产出一个"小而美"的 mini-superpowers：2 到 3 个相互调用的 skill，打成一个 plugin，能跑、能用、能演示。</p>
+<p>这个毕业项目（graduate project（毕业项目））不要求你做出 superpowers 那样庞大的东西——superpowers 有 14 个 skill，是几年迭代的结果。你的目标是产出一个"小而美"的 mini-superpowers：2 到 3 个相互调用的 skill，打成一个 plugin，能跑、能用、能演示。</p>
 
 <div class="callout key"><span class="icon">💡</span><div class="callout-body">毕业项目的本质：把"单个 skill"升级成"skill 体系"。你要的不只是一个能用的 skill，而是一套相互配合、入口清晰、按需加载的小型生态系统——就像 superpowers 一样。</div></div>
 
@@ -6137,7 +6137,7 @@ mkdir -p my-translation-plugin/skills/my-translation
     ├── review-process/             <span class="cmt"># 评审流程（先看什么后看什么）</span>
     └── review-checklist/           <span class="cmt"># 评审清单（命名、错误处理、测试）</span>
 </code></pre>
-<p>用户贴一段代码让你评审，入口 skill 引导 AI 按流程走、用清单逐项检查。适合经常做 code review 的工程师同学。</p>
+<p>用户贴一段代码让你评审，入口 skill 引导 AI 按流程走、用清单逐项检查。适合经常做 code review（代码审查） 的工程师同学。</p>
 
 <h3>建议 C：学习笔记助手（note-assistant）</h3>
 <pre><code>note-assistant/
@@ -6176,7 +6176,7 @@ mkdir -p my-translation-plugin/skills/my-translation
 <p>用一个<b>自然的、不带提示词</b>的提问测试。比如对"中文写作助手"，你问："这段话读起来怪怪的，帮我看看——'这个事情我觉得是必须要做的'。"如果 AI 自动调用了 punctuation-rules 或 word-choice，说明 description 写对了。这一条验证的是模块五学得对不对。</p>
 
 <h3>验收 3：至少一个压力场景下 AI 遵守规则</h3>
-<p>压力场景（stress test）= 故意用模糊、跨领域、有歧义的提问，看 AI 还能不能守住 skill 里写的规则。比如：你问"这段中文有没有翻译腔"，但实际给的文本是一段 Python 代码注释。优秀的 skill 应该能识别这是"代码注释里的中文"，仍然调用 word-choice skill 检查翻译腔，而不是傻乎乎地说"这不是中文"。这一条验证的是模块三、四、五综合学得对不对。</p>
+<p>压力场景（stress test（压力测试））= 故意用模糊、跨领域、有歧义的提问，看 AI 还能不能守住 skill 里写的规则。比如：你问"这段中文有没有翻译腔"，但实际给的文本是一段 Python 代码注释。优秀的 skill 应该能识别这是"代码注释里的中文"，仍然调用 word-choice skill 检查翻译腔，而不是傻乎乎地说"这不是中文"。这一条验证的是模块三、四、五综合学得对不对。</p>
 
 <div class="callout danger"><span class="icon">🚫</span><div class="callout-body">禁止自欺欺人：如果三条验收有一条没过，不要"假装过了"。回去改 skill，直到真的通过。毕业项目的价值在于真的跑通，不在于交差。</div></div>
 
@@ -6223,7 +6223,7 @@ mkdir -p my-translation-plugin/skills/my-translation
   <li><b>打包</b>：用 plugin + hook 把 skill 变成可分发、可自动加载的完整产品。</li>
 </ul>
 
-<div class="callout key"><span class="icon">💡</span><div class="callout-body">这五件事组合起来，就是"用文档驱动 AI 行为"的完整闭环。这套方法论不只适用于写 zcode 的 skill，它适用于任何需要"让 LLM 稳定按规则办事"的场景——无论是写 system prompt、写 agent 指令、还是设计 AI 工作流。</div></div>
+<div class="callout key"><span class="icon">💡</span><div class="callout-body">这五件事组合起来，就是"用文档驱动 AI 行为"的完整闭环。这套方法论不只适用于写 zcode 的 skill，它适用于任何需要"让 LLM 稳定按规则办事"的场景——无论是写 system prompt（系统提示词）、写 agent 指令、还是设计 AI 工作流。</div></div>
 
 <p>未来不管 AI 模型怎么升级、客户端怎么变，这套"结构化表达规则 + 测试验证 + 持续精修"的方法论都不会过时。因为它的核心不是某个具体工具，而是<b>如何把人类的隐性经验，变成 AI 能稳定执行的显性指令</b>。这才是这门课真正想教给你的东西。</p>
 
