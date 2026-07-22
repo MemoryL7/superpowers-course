@@ -1,0 +1,31 @@
+# 测试与构建产物
+node_modules/
+package.json
+package-lock.json
+*.log
+
+# 临时调试文件
+extracted.js
+tmp-*.js
+verify-*.js
+debug-*.js
+check-*.js
+diag*.js
+fix*.js
+merge*.js
+force-*.js
+dedupe*.js
+replace-*.js
+all-lessons*.js
+part-*.js
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
